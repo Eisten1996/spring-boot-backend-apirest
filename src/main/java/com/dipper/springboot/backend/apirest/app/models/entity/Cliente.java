@@ -1,6 +1,9 @@
 package com.dipper.springboot.backend.apirest.app.models.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -12,9 +15,16 @@ public class Cliente implements Serializable {
     private Long id;
 
     @Column(nullable = false)
+    @NotEmpty(message = "no puede estar vacio")
+    @Size(min = 4, max = 12, message = "El tamaño debe estar entre 4 y 12 caracteres")
     private String nombre;
+
+    @NotEmpty(message = "no puede estar vacio")
     private String apellido;
+
     @Column(nullable = false, unique = true)
+    @NotEmpty(message = "no puede estar vacio")
+    @Email(message = "no es una direccion de correo bien formada")
     private String email;
     @Column(name = "create_at")
     @Temporal(TemporalType.DATE)
